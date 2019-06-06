@@ -26,7 +26,7 @@ def main():
     end_date = input("Date de sortie dans l'hotel : ")
     end_date = datetime.strptime(end_date, date_format)
 
-    available_rooms = hotel.find_available_room(beginning_date, end_date)
+    available_rooms = hotel.find_available_rooms(beginning_date, end_date)
 
     for room in available_rooms:
         print(room)

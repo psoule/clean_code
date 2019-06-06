@@ -82,7 +82,7 @@ def test_find_available_room():
     room1.book(booked_room1_date)
 
     # When
-    available_rooms = hotel.find_available_room(booked_room1_date)
+    available_rooms = hotel.find_available_rooms(booked_room1_date)
 
     # Then
     assert len(available_rooms) == 1
@@ -108,7 +108,7 @@ def test_find_available_room_between_two_given_dates():
     room2.book(room2_booked_date)
 
     # When
-    available_rooms = hotel.find_available_room(begining_booking_date, end_booking_date)
+    available_rooms = hotel.find_available_rooms(begining_booking_date, end_booking_date)
 
     print(available_rooms)
 
