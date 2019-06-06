@@ -7,10 +7,8 @@ class Room(object):
         self.room_number = room_numer
 
     def is_available(self, checkin_date, checkout_date):
-        day_count = (checkout_date - checkin_date).days
-
         room_is_available = True
-        for requested_date in (checkin_date + timedelta(n) for n in range(day_count)):
+        for requested_date in self.__get_dates_range(checkin_date, checkout_date):
             if not self.is_available_this_day(requested_date):
                 room_is_available = False
 
@@ -24,3 +22,12 @@ class Room(object):
 
     def __str__(self):
         return "Chambre : " + str(self.room_number)
+
+    def __get_dates_range(self, start_date, end_date):
+        day_count = (end_date - start_date).days
+
+        dates = []
+        for n in range(day_count):
+            dates.append(start_date + timedelta(n))
+
+        return dates
