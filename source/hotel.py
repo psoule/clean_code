@@ -9,7 +9,7 @@ class Hotel(object):
 
     def find_available_rooms(self, checkin_date, checkout_date=None):
         if checkout_date is None:
-            checkout_date = checkin_date + timedelta(1)
+            checkout_date = self.__add_days(checkin_date, 1)
 
         available_rooms = self._get_available_rooms(checkin_date, checkout_date)
 
@@ -24,3 +24,6 @@ class Hotel(object):
                 available_rooms.append(room)
 
         return available_rooms
+
+    def __add_days(self, date, number_days):
+        return date + timedelta(number_days)
