@@ -35,7 +35,7 @@ def test_room_availability():
     date = datetime.utcnow()
 
     # When
-    availability = room.is_available(date)
+    availability = room.is_available_this_day(date)
     # Then
     assert availability is True
 
@@ -47,7 +47,7 @@ def test_room_booking():
     room.book(date)
 
     # When
-    availability = room.is_available(date)
+    availability = room.is_available_this_day(date)
 
     # Then
     assert availability is False
@@ -64,7 +64,7 @@ def test_room_is_available_at_04042019():
     room.book(booked_date2)
 
     # When
-    availability = room.is_available(available_date)
+    availability = room.is_available_this_day(available_date)
 
     # Then
     assert availability is True
