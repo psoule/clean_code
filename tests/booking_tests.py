@@ -1,16 +1,8 @@
+import pytest
+
 from source.hotel import Hotel
 from source.room import Room
 from datetime import datetime
-
-
-def test_room_object_as_specified_floor():
-    # Given
-
-    # When
-    room = Room(101, 2)
-
-    # Then
-    assert room is not None
 
 
 def test_hotel_has_specified_rooms():
@@ -110,8 +102,6 @@ def test_find_available_room_between_two_given_dates():
     # When
     available_rooms = hotel.find_available_rooms(begining_booking_date, end_booking_date)
 
-    print(available_rooms)
-
     # Then
     assert len(available_rooms) == 2
     assert room2 in available_rooms
@@ -136,3 +126,19 @@ def test_find_available_room_with_capacity_superior_to_number_of_guests():
 
     # Then
     assert available_rooms == [room1]
+
+def test_checkin_range_is_greater_than_minimum_nights_stay():
+    # Given
+    room101 = Room(101, 2)
+    number_of_guests = 1
+
+    hotel = Hotel([room101])
+
+    checkin_date = datetime(2019, 6, 5)
+    checkout_date = datetime(2019, 6, 5)
+
+    # When Then
+    with pytest.raises(Exception):
+        assert hotel.find_available_rooms(checkin_date, checkout_date, number_of_guests=number_of_guests)
+
+

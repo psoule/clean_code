@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from source.booking import Booking
 from source.date_utils import DATE_FORMAT
 from source.hotel import Hotel
 from source.room import Room
@@ -29,3 +30,26 @@ def test_find_available_rooms():
 
     # Then
     assert available_rooms == [room_101, room_104]
+
+
+def test_book_a_room_for_3_nights():
+    # Given
+    to_booked_room_number = 102
+    number_of_guests = 4
+    checkin_date = datetime(2019, 6, 1)
+    checkout_date = datetime(2019, 6, 5)
+
+    booking = Booking(to_booked_room_number, number_of_guests, checkin_date, checkout_date)
+
+    room_101 = Room(101, room_capacity=2)
+    room_102 = Room(102, room_capacity=4)
+
+    hotel_cuzco = Hotel([room_101, room_102])
+
+    # When
+    hotel_cuzco.book_room(booking)
+
+    # Then
+    assert not room_102.is_available_this_day(datetime(2019, 6, 3))
+    assert room_102.is_available_this_day(datetime(2019, 5, 31))
+    assert room_102.is_available_this_day(datetime(2019, 6, 5))
