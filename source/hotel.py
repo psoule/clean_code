@@ -11,7 +11,7 @@ class Hotel(object):
         if checkout_date is None:
             checkout_date = self.__add_days(checkin_date, 1)
 
-        available_rooms = self._get_available_rooms(checkin_date, checkout_date)
+        available_rooms = self.__get_available_rooms(checkin_date, checkout_date)
 
         return available_rooms
 
