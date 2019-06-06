@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from source.date_utils import DATE_FORMAT
 from source.hotel import Hotel
 from source.room import Room
 
@@ -20,11 +22,10 @@ def main():
     print("Bienvenue à l'Hotel Cuzco")
     hotel = init_hotel()
 
-    date_format = "%Y-%m-%d"
     beginning_date = input("Date d'arrivée dans l'hotel : ")
-    beginning_date = datetime.strptime(beginning_date, date_format)
+    beginning_date = datetime.strptime(beginning_date, DATE_FORMAT)
     end_date = input("Date de sortie dans l'hotel : ")
-    end_date = datetime.strptime(end_date, date_format)
+    end_date = datetime.strptime(end_date, DATE_FORMAT)
 
     available_rooms = hotel.find_available_rooms(beginning_date, end_date)
 

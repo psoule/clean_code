@@ -7,7 +7,7 @@ def test_room_object_as_specified_floor():
     # Given
 
     # When
-    room = Room()
+    room = Room(101, 2)
 
     # Then
     assert room is not None
@@ -15,9 +15,9 @@ def test_room_object_as_specified_floor():
 
 def test_hotel_has_specified_rooms():
     # Given
-    room1 = Room()
-    room2 = Room()
-    room3 = Room()
+    room1 = Room(101, 2)
+    room2 = Room(102, 2)
+    room3 = Room(103, 2)
 
     rooms_in_hotel = [room1, room2, room3]
 
@@ -31,7 +31,7 @@ def test_hotel_has_specified_rooms():
 
 def test_room_availability():
     # Given
-    room = Room()
+    room = Room(101, 2)
     date = datetime.utcnow()
 
     # When
@@ -43,7 +43,7 @@ def test_room_availability():
 def test_room_booking():
     # Given
     date = datetime.utcnow()
-    room = Room()
+    room = Room(101, 2)
     room.book(date)
 
     # When
@@ -59,7 +59,7 @@ def test_room_is_available_at_04042019():
     booked_date2 = datetime(2019, 4, 5)
     available_date = datetime(2019, 4, 4)
 
-    room = Room()
+    room = Room(101, 2)
     room.book(booked_date1)
     room.book(booked_date2)
 
@@ -72,8 +72,8 @@ def test_room_is_available_at_04042019():
 
 def test_find_available_room():
     # Given
-    room1 = Room()
-    room2 = Room()
+    room1 = Room(101, 2)
+    room2 = Room(102, 2)
 
     rooms_in_hotel = [room1, room2]
     hotel = Hotel(rooms_in_hotel)
@@ -91,9 +91,9 @@ def test_find_available_room():
 
 def test_find_available_room_between_two_given_dates():
     # Given
-    room1 = Room()
-    room2 = Room()
-    room3 = Room()
+    room1 = Room(101, 2)
+    room2 = Room(102, 2)
+    room3 = Room(103, 2)
 
     rooms_in_hotel = [room1, room2, room3]
     hotel = Hotel(rooms_in_hotel)
@@ -117,3 +117,22 @@ def test_find_available_room_between_two_given_dates():
     assert room2 in available_rooms
     assert room1 not in available_rooms
     assert room3 in available_rooms
+
+
+def test_find_available_room_with_capacity_superior_to_number_of_guests():
+    # Given
+    room1 = Room(101, 4)
+    room2 = Room(102, 2)
+
+    number_of_guests = 3
+
+    rooms_in_hotel = [room1, room2]
+    hotel = Hotel(rooms_in_hotel)
+
+    checkin_date = datetime(2019, 5, 3)
+
+    # When
+    available_rooms = hotel.find_available_rooms(checkin_date, number_of_guests=number_of_guests)
+
+    # Then
+    assert available_rooms == [room1]
