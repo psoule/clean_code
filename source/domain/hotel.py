@@ -1,11 +1,12 @@
 from source.domain.booking import Booking
+from source.domain.ports.ihotel import IHotel
 from source.utils.date_utils import add_days, get_dates_range
 from source.domain.room import Room
 from typing import List, Optional
 from datetime import datetime
 
 
-class Hotel(object):
+class Hotel(IHotel):
     MINIMUM_NIGHTS_STAY = 1
 
     def __init__(self, rooms: List[Room]):

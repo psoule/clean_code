@@ -2,8 +2,8 @@ import os
 from datetime import datetime
 from unittest.mock import MagicMock
 
-from source.adaptors.hotel_service import HotelService
-from source.adaptors.json_rooms_repository import JsonRoomsRepository
+from source.adapters.hotel_service import HotelService
+from source.adapters.json_rooms_repository import JsonRoomsRepository
 from source.domain.booking import Booking
 from source.domain.ports.rooms_repository import RoomsRepository
 from source.utils.date_utils import DATE_FORMAT
