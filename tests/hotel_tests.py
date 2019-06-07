@@ -1,7 +1,7 @@
 import pytest
 
-from source.hotel import Hotel
-from source.room import Room
+from source.domain.hotel import Hotel
+from source.domain.room import Room
 from datetime import datetime
 
 

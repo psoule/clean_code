@@ -1,6 +1,6 @@
-from source.booking import Booking
-from source.date_utils import add_days, get_dates_range
-from source.room import Room
+from source.domain.booking import Booking
+from source.utils.date_utils import add_days, get_dates_range
+from source.domain.room import Room
 from typing import List, Optional
 from datetime import datetime
 

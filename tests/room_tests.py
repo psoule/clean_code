@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from source.room import Room
+from source.domain.room import Room
 
 
 def test_room_availability():

@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from source.date_utils import DATE_FORMAT
-from source.hotel import Hotel
-from source.room import Room
+from source.utils.date_utils import DATE_FORMAT
+from source.domain.hotel import Hotel
+from source.domain.room import Room
 
 
 def init_hotel():

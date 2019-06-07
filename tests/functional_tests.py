@@ -1,9 +1,14 @@
+import os
 from datetime import datetime
+from unittest.mock import MagicMock
 
-from source.booking import Booking
-from source.date_utils import DATE_FORMAT
-from source.hotel import Hotel
-from source.room import Room
+from source.adaptors.hotel_service import HotelService
+from source.adaptors.json_rooms_repository import JsonRoomsRepository
+from source.domain.booking import Booking
+from source.domain.ports.rooms_repository import RoomsRepository
+from source.utils.date_utils import DATE_FORMAT
+from source.domain.hotel import Hotel
+from source.domain.room import Room
 
 
 def test_find_available_rooms():
@@ -53,3 +58,47 @@ def test_book_a_room_for_3_nights():
     assert not room_102.is_available_this_day(datetime(2019, 6, 3))
     assert room_102.is_available_this_day(datetime(2019, 5, 31))
     assert room_102.is_available_this_day(datetime(2019, 6, 5))
+
+
+def test_build_hotel():
+    # Given
+    room_101 = Room(101, room_capacity=2)
+    room_102 = Room(102, room_capacity=4)
+
+    rooms_repo = MagicMock()
+    rooms_repo.load_rooms = MagicMock()
+    rooms_repo.load_rooms.return_value = [room_101, room_102]
+
+    hotel_service = HotelService(rooms_repo)
+
+    # When
+    hotel = hotel_service.build_hotel()
+
+    # Then
+    assert hotel.rooms == [room_101, room_102]
+
+
+def test_rooms_repository_load_rooms():
+    # Given
+    json_rooms = {
+        "rooms":
+            [
+                {
+                    "room_number": 101,
+                    "room_capacity": 2
+                },
+                {
+                    "room_number": 102,
+                    "room_capacity": 4
+                }
+            ]
+    }
+    json_rooms_repository = JsonRoomsRepository('')
+    json_rooms_repository._read_json_file = MagicMock()
+    json_rooms_repository._read_json_file.return_value = json_rooms
+
+    # Then
+    loaded_rooms = json_rooms_repository.load_rooms()
+
+    # When
+    assert len(loaded_rooms) == 2
